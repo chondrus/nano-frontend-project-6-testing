@@ -69,17 +69,20 @@ $(function() {
     /* This suite is all about the hamburger menu */
     describe('The menu', function() {
 
-        /* ensures the menu element is hidden by default. */
+        /* ensures menu element is hidden by default. */
         it('is hidden by default', function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+         /* ensures menu changes visibility when menu icon is clicked. */
+        it('toggles visibility when clicked', function() {
+            $('.menu-icon-link').trigger('click');
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+
+            $('.menu-icon-link').trigger('click');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+        });
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
