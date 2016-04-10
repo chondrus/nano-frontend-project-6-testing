@@ -27,10 +27,22 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('have defined, non-empty urls', function() {
+            var allLinks = allFeeds.map(function(feed) {
+                // undefined and "" will both cause a simple return here,
+                // making both undefined for the expect below
+                if (feed.url) {
+                    return feed.url;
+                } else {
+                    return;
+                }
+            });
+            expect(allLinks.indexOf(undefined)).toBe(-1);
+        });
 
 
         /* TODO: Write a test that loops through each feed
