@@ -45,10 +45,23 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('have defined, non-empty names', function() {
+            var allNames = allFeeds.map(function(feed) {
+                // undefined and "" will both cause a simple return here,
+                // making both undefined for the expect below
+                if (feed.name) {
+                    return feed.name;
+                } else {
+                    return;
+                }
+            });
+            expect(allNames.indexOf(undefined)).toBe(-1);
+        });
+
     });
 
 
