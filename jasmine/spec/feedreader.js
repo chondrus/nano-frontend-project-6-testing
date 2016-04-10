@@ -10,27 +10,19 @@
  */
 $(function() {
 
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+    /* This suite is all about the RSS feeds definitions.
+     * (The allFeeds variable in our application.)
+     */
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
-         */
+
+        /* ensures that allFeeds variable is defined and not empty. */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* ensures that each element in allFeeds
+         * has a URL defined and that the URL is not empty.
          */
         it('have defined, non-empty urls', function() {
             var allLinks = allFeeds.map(function(feed) {
@@ -45,10 +37,8 @@ $(function() {
             expect(allLinks.indexOf(undefined)).toBe(-1);
         });
 
-
-        /* Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* ensures that each element in allFeeds
+         * has a name defined and that the name is not empty.
          */
         it('have defined, non-empty names', function() {
             var allNames = allFeeds.map(function(feed) {
@@ -74,8 +64,7 @@ $(function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
-
-         /* ensures menu changes visibility when menu icon is clicked. */
+        /* ensures menu changes visibility when menu icon is clicked. */
         it('toggles visibility when clicked', function() {
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(false);
@@ -85,17 +74,18 @@ $(function() {
         });
     });
 
+
     /* This suite is for the initial entries */
     describe('Initial Entries', function() {
 
-        /* ensures when loadFeed is called and completes, there is 
-         * at least one .entry element within the .feed container.
-         */
         beforeEach(function(done) {
             var test = getRandomInt(0, allFeeds.length);
             loadFeed(test, done);
         });
 
+        /* ensures when loadFeed is called and completes, there is
+         * at least one .entry element within the .feed container.
+         */
         it('there should be at least one', function(done) {
             expect($(".feed .entry").length).toBeGreaterThan(0);
             done();
@@ -117,13 +107,13 @@ $(function() {
         /* ensures content changes when new feed is loaded via loadFeed. */
         it('changes content', function(done) {
             loadFeed(1, function() {
-                console.log(initialContent);
                 expect(initialContent).not.toEqual($(".feed").html());
                 done();
             });            
         });
 
-        it('changes content back', function(done) {
+        /* test 2: it changes again, back to what it was initially */
+        it('changes content to original', function(done) {
             loadFeed(0, function() {
                 expect(initialContent).toEqual($(".feed").html());
                 done();
