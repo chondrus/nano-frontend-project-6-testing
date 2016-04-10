@@ -88,7 +88,7 @@ $(function() {
     /* This suite is for the initial entries */
     describe('Initial Entries', function() {
 
-        /* ensures when `loadFeed` is called and completes, there is 
+        /* ensures when loadFeed is called and completes, there is 
          * at least one .entry element within the .feed container.
          */
         beforeEach(function(done) {
@@ -104,11 +104,31 @@ $(function() {
 
     /* This suite is for selecting a new feed */
     describe('New Feed Selection', function() {
+
+        var initialContent;
     
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                initialContent = $(".feed").html();
+                done();
+            });
+        });
+
+        /* ensures content changes when new feed is loaded via loadFeed. */
+        it('changes content', function(done) {
+            loadFeed(1, function() {
+                console.log(initialContent);
+                expect(initialContent).not.toEqual($(".feed").html());
+                done();
+            });            
+        });
+
+        it('changes content back', function(done) {
+            loadFeed(0, function() {
+                expect(initialContent).toEqual($(".feed").html());
+                done();
+            });            
+        });
     });
 }());
 
